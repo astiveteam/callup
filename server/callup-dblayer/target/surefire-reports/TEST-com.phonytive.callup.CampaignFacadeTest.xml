@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="2.544" errors="0" skipped="0" tests="1" name="com.phonytive.callup.CampaignFacadeTest">
+<testsuite failures="0" time="2.421" errors="0" skipped="0" tests="1" name="com.phonytive.callup.CampaignFacadeTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/i386"/>
@@ -30,7 +30,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="50.0"/>
     <property name="sun.management.compiler" value="HotSpot Tiered Compilers"/>
-    <property name="os.version" value="2.6.32-35-generic"/>
+    <property name="os.version" value="2.6.32-41-generic"/>
     <property name="user.home" value="/home/psanders"/>
     <property name="user.timezone" value="America/North_Dakota/Beulah"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
@@ -57,5 +57,5 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="2.431" classname="com.phonytive.callup.CampaignFacadeTest" name="testCampaignFacade"/>
+  <testcase time="2.245" classname="com.phonytive.callup.CampaignFacadeTest" name="testCampaignFacade"/>
 </testsuite>

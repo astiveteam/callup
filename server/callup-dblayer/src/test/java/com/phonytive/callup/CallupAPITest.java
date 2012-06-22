@@ -18,7 +18,7 @@ public class CallupAPITest extends TestCase {
     
     public void testAddUser() {
         
-        ObjectId u = new ObjectId();
+        /*ObjectId u = new ObjectId();
         u.setId(new ObjectId("4fa6a07444aef1d0302b5ed3"));
         u.setName("Te amo Raysa");
         
@@ -35,6 +35,6 @@ public class CallupAPITest extends TestCase {
         
         for(Campaign cc: cai.getCampaings(u)) {
             System.out.println(cc.getCallerId());
-        }
+        }*/
     }
 }

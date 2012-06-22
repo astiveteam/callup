@@ -1,0 +1,4 @@
+#!/bin/sh
+mvn install package assembly:assembly -DskipTests=true
+# Uncomment next line to generate the javadocs.
+#mvn javadoc:aggregate

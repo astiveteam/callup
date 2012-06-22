@@ -1,0 +1,7 @@
+#!/bin/sh
+# Operations include:
+# Start or stop Astive, deploy or undeploy apps.
+export ASTIVE_HOME="$PWD"
+export ASTIVE_APPS="$ASTIVE_HOME/apps"
+java -Duser.country=US -Duser.language=en -classpath $ASTIVE_HOME/lib/*:$ASTIVE_HOME/conf/log4j.xml com.phonytive.astive.server.AstiveServer "$@"
+

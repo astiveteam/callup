@@ -1,0 +1,6 @@
+#!/bin/sh
+# Operations include:
+# Start or stop Callup, deploy or undeploy apps.
+export CALLUP_HOME="$PWD"
+java -Duser.country=US -Duser.language=en -classpath $CALLUP_HOME/lib/*:$CALLUP_HOME/conf/log4j.xml com.phonytive.callup.server.CallupServer "$@"
+

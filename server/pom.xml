@@ -15,7 +15,6 @@
         <module>callup-rest</module>
         <module>callup-dblayer</module>
         <module>callup-core</module>
-        <module>callup-webadmin</module>
     </modules>
 </project>
 

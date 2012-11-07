@@ -1,4 +1,4 @@
 #!/bin/sh
 # Shows the server version
-export ASTIVE_HOME="$PWD"
-java -Duser.country=US -Duser.language=en -classpath $ASTIVE_HOME/lib/astive-commons* com.phonytive.astive.Version
+export CALLUP_HOME="$PWD"
+java -Duser.country=US -Duser.language=en -classpath $CALLUP_HOME/lib/callup-commons* com.phonytive.callup.Version

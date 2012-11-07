@@ -11,9 +11,8 @@ message such as:
 	. Conditional Alerts, Notifications & Appointment Reminders
 	. Outbound Tele-Marketing Services
 	. Emergency Notifications
-	. Emergency Notifications
 	. Outbound Customer Survey & Feedback Capture
-	. Political Campaigning and fund raising
+	. Political Campaigning and fundraising
 	. Disaster Management and Recovery
 	. Voicemail delivery
 	. Surveys

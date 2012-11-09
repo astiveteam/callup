@@ -1,21 +1,40 @@
+/* 
+ * Copyright (C) 2012 PhonyTive LLC
+ * http://callup.phonytive.com
+ *
+ * This file is part of Callup
+ *
+ * Callup is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Callup is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.phonytive.callup.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "AudioFile", catalog = "callup", schema = "")
+@Table(name = "AudioFile")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AudioFile.findAll", query = "SELECT a FROM AudioFile a"),
     @NamedQuery(name = "AudioFile.findByAudioFileId", query = "SELECT a FROM AudioFile a WHERE a.audioFileId = :audioFileId"),
     @NamedQuery(name = "AudioFile.findByName", query = "SELECT a FROM AudioFile a WHERE a.name = :name"),
     @NamedQuery(name = "AudioFile.findByTime", query = "SELECT a FROM AudioFile a WHERE a.time = :time"),
-    @NamedQuery(name = "AudioFile.findByFormat", query = "SELECT a FROM AudioFile a WHERE a.format = :format"),
+    @NamedQuery(name = "AudioFile.findBySupportedFormat", query = "SELECT a FROM AudioFile a WHERE a.supportedFormat = :supportedFormat"),
     @NamedQuery(name = "AudioFile.findByDescription", query = "SELECT a FROM AudioFile a WHERE a.description = :description"),
     @NamedQuery(name = "AudioFile.findByCreated", query = "SELECT a FROM AudioFile a WHERE a.created = :created"),
     @NamedQuery(name = "AudioFile.findByGender", query = "SELECT a FROM AudioFile a WHERE a.gender = :gender"),
@@ -30,8 +49,8 @@ public class AudioFile implements Serializable {
     private String name;
     @Column(name = "time")
     private Integer time;
-    @Column(name = "format", length = 11)
-    private String format;
+    @Column(name = "supportedFormat", length = 11)
+    private String supportedFormat;
     @Column(name = "description", length = 45)
     private String description;
     @Column(name = "created")
@@ -39,15 +58,12 @@ public class AudioFile implements Serializable {
     private Date created;
     @Column(name = "gender", length = 11)
     private String gender;
-    @Column(name = "hide", length = 45)
-    private String hide;
-    @JoinTable(name = "AudioFile_has_User", joinColumns = {
-        @JoinColumn(name = "AudioFile", referencedColumnName = "audioFileId", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "User", referencedColumnName = "userId", nullable = false)})
-    @ManyToMany
-    private List<User> userList;
-    @ManyToMany(mappedBy = "audioFileList")
-    private List<Campaign> campaignList;
+    @Column(name = "hide")
+    private Boolean hide;
+    @ManyToMany(mappedBy = "audioFileCollection")
+    private Collection<User> userCollection;
+    @ManyToMany(mappedBy = "audioFileCollection")
+    private Collection<Campaign> campaignCollection;
 
     public AudioFile() {
     }
@@ -80,12 +96,12 @@ public class AudioFile implements Serializable {
         this.time = time;
     }
 
-    public String getFormat() {
-        return format;
+    public String getSupportedFormat() {
+        return supportedFormat;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
+    public void setSupportedFormat(String supportedFormat) {
+        this.supportedFormat = supportedFormat;
     }
 
     public String getDescription() {
@@ -112,30 +128,30 @@ public class AudioFile implements Serializable {
         this.gender = gender;
     }
 
-    public String getHide() {
+    public Boolean getHide() {
         return hide;
     }
 
-    public void setHide(String hide) {
+    public void setHide(Boolean hide) {
         this.hide = hide;
     }
 
     @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @XmlTransient
-    public List<Campaign> getCampaignList() {
-        return campaignList;
+    public Collection<Campaign> getCampaignCollection() {
+        return campaignCollection;
     }
 
-    public void setCampaignList(List<Campaign> campaignList) {
-        this.campaignList = campaignList;
+    public void setCampaignCollection(Collection<Campaign> campaignCollection) {
+        this.campaignCollection = campaignCollection;
     }
 
     @Override

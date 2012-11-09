@@ -17,8 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.phonytive.callup.api;
+package com.phonytive.callup.exceptions;
 
-public class ReportsAPI {
-
+public class NonexistentEntityException extends Exception {
+    public NonexistentEntityException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    public NonexistentEntityException(String message) {
+        super(message);
+    }
 }

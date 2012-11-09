@@ -1,14 +1,33 @@
+/* 
+ * Copyright (C) 2012 PhonyTive LLC
+ * http://callup.phonytive.com
+ *
+ * This file is part of Callup
+ *
+ * Callup is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Callup is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.phonytive.callup.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "Subscriber", catalog = "callup", schema = "", uniqueConstraints = {
+@Table(name = "Subscriber", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"externalId"})})
 @XmlRootElement
 @NamedQueries({
@@ -43,13 +62,13 @@ public class Subscriber implements Serializable {
     private String lastName;
     @Column(name = "description", length = 45)
     private String description;
-    @JoinTable(name = "SubscriberLists", joinColumns = {
+    @JoinTable(name = "SubscriberCatalog", joinColumns = {
         @JoinColumn(name = "subscriber", referencedColumnName = "subscriberId", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "list", referencedColumnName = "listId", nullable = false)})
     @ManyToMany
-    private List<com.phonytive.callup.entities.List> listList;
+    private Collection<Catalog> catalogCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subscriber1")
-    private List<CallDetailRecord> callDetailRecordList;
+    private Collection<CallDetailRecord> callDetailRecordCollection;
 
     public Subscriber() {
     }
@@ -128,21 +147,21 @@ public class Subscriber implements Serializable {
     }
 
     @XmlTransient
-    public List<com.phonytive.callup.entities.List> getListList() {
-        return listList;
+    public Collection<Catalog> getCatalogCollection() {
+        return catalogCollection;
     }
 
-    public void setListList(List<com.phonytive.callup.entities.List> listList) {
-        this.listList = listList;
+    public void setCatalogCollection(Collection<Catalog> catalogCollection) {
+        this.catalogCollection = catalogCollection;
     }
 
     @XmlTransient
-    public List<CallDetailRecord> getCallDetailRecordList() {
-        return callDetailRecordList;
+    public Collection<CallDetailRecord> getCallDetailRecordCollection() {
+        return callDetailRecordCollection;
     }
 
-    public void setCallDetailRecordList(List<CallDetailRecord> callDetailRecordList) {
-        this.callDetailRecordList = callDetailRecordList;
+    public void setCallDetailRecordCollection(Collection<CallDetailRecord> callDetailRecordCollection) {
+        this.callDetailRecordCollection = callDetailRecordCollection;
     }
 
     @Override

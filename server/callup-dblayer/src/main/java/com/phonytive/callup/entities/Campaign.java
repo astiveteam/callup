@@ -1,14 +1,33 @@
+/* 
+ * Copyright (C) 2012 PhonyTive LLC
+ * http://callup.phonytive.com
+ *
+ * This file is part of Callup
+ *
+ * Callup is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Callup is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.phonytive.callup.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "Campaign", catalog = "callup", schema = "")
+@Table(name = "Campaign")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Campaign.findAll", query = "SELECT c FROM Campaign c"),
@@ -17,8 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Campaign.findByName", query = "SELECT c FROM Campaign c WHERE c.name = :name"),
     @NamedQuery(name = "Campaign.findByMaxRetriesPerDay", query = "SELECT c FROM Campaign c WHERE c.maxRetriesPerDay = :maxRetriesPerDay"),
     @NamedQuery(name = "Campaign.findByMaxRetriesPerCampaign", query = "SELECT c FROM Campaign c WHERE c.maxRetriesPerCampaign = :maxRetriesPerCampaign"),
-    @NamedQuery(name = "Campaign.findByFrom", query = "SELECT c FROM Campaign c WHERE c.from = :from"),
-    @NamedQuery(name = "Campaign.findByTo", query = "SELECT c FROM Campaign c WHERE c.to = :to"),
+    @NamedQuery(name = "Campaign.findByFromDate", query = "SELECT c FROM Campaign c WHERE c.fromDate = :fromDate"),
+    @NamedQuery(name = "Campaign.findByToDate", query = "SELECT c FROM Campaign c WHERE c.toDate = :toDate"),
+    @NamedQuery(name = "Campaign.findByFromTime", query = "SELECT c FROM Campaign c WHERE c.fromTime = :fromTime"),
+    @NamedQuery(name = "Campaign.findByToTime", query = "SELECT c FROM Campaign c WHERE c.toTime = :toTime"),
     @NamedQuery(name = "Campaign.findByStatus", query = "SELECT c FROM Campaign c WHERE c.status = :status"),
     @NamedQuery(name = "Campaign.findByCreated", query = "SELECT c FROM Campaign c WHERE c.created = :created"),
     @NamedQuery(name = "Campaign.findByUpdated", query = "SELECT c FROM Campaign c WHERE c.updated = :updated"),
@@ -38,12 +59,18 @@ public class Campaign implements Serializable {
     private Integer maxRetriesPerDay;
     @Column(name = "maxRetriesPerCampaign")
     private Integer maxRetriesPerCampaign;
-    @Column(name = "from")
+    @Column(name = "fromDate")
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
+    @Column(name = "toDate")
+    @Temporal(TemporalType.DATE)
+    private Date toDate;
+    @Column(name = "fromTime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date from;
-    @Column(name = "to")
+    private Date fromTime;
+    @Column(name = "toTime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date to;
+    private Date toTime;
     @Column(name = "status", length = 23)
     private String status;
     @Column(name = "created")
@@ -63,15 +90,15 @@ public class Campaign implements Serializable {
         @JoinColumn(name = "Campaign", referencedColumnName = "campaignId", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "AudioFile", referencedColumnName = "audioFileId", nullable = false)})
     @ManyToMany
-    private List<AudioFile> audioFileList;
-    @JoinColumn(name = "list", referencedColumnName = "listId", nullable = false)
+    private Collection<AudioFile> audioFileCollection;
+    @JoinColumn(name = "catalog", referencedColumnName = "listId", nullable = false)
     @ManyToOne(optional = false)
-    private com.phonytive.callup.entities.List list;
+    private Catalog catalog;
     @JoinColumn(name = "user", referencedColumnName = "userId", nullable = false)
     @ManyToOne(optional = false)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "campaign1")
-    private List<CallDetailRecord> callDetailRecordList;
+    private Collection<CallDetailRecord> callDetailRecordCollection;
 
     public Campaign() {
     }
@@ -120,20 +147,36 @@ public class Campaign implements Serializable {
         this.maxRetriesPerCampaign = maxRetriesPerCampaign;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getToDate() {
+        return toDate;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public Date getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(Date fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public Date getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(Date toTime) {
+        this.toTime = toTime;
     }
 
     public String getStatus() {
@@ -185,20 +228,20 @@ public class Campaign implements Serializable {
     }
 
     @XmlTransient
-    public List<AudioFile> getAudioFileList() {
-        return audioFileList;
+    public Collection<AudioFile> getAudioFileCollection() {
+        return audioFileCollection;
     }
 
-    public void setAudioFileList(List<AudioFile> audioFileList) {
-        this.audioFileList = audioFileList;
+    public void setAudioFileCollection(Collection<AudioFile> audioFileCollection) {
+        this.audioFileCollection = audioFileCollection;
     }
 
-    public com.phonytive.callup.entities.List getList() {
-        return list;
+    public Catalog getCatalog() {
+        return catalog;
     }
 
-    public void setList(com.phonytive.callup.entities.List list) {
-        this.list = list;
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
     }
 
     public User getUser() {
@@ -210,12 +253,12 @@ public class Campaign implements Serializable {
     }
 
     @XmlTransient
-    public List<CallDetailRecord> getCallDetailRecordList() {
-        return callDetailRecordList;
+    public Collection<CallDetailRecord> getCallDetailRecordCollection() {
+        return callDetailRecordCollection;
     }
 
-    public void setCallDetailRecordList(List<CallDetailRecord> callDetailRecordList) {
-        this.callDetailRecordList = callDetailRecordList;
+    public void setCallDetailRecordCollection(Collection<CallDetailRecord> callDetailRecordCollection) {
+        this.callDetailRecordCollection = callDetailRecordCollection;
     }
 
     @Override

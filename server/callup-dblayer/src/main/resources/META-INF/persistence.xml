@@ -10,6 +10,14 @@
     <class>com.phonytive.callup.entities.HistoryType</class>
     <class>com.phonytive.callup.entities.CallDetailRecord_1</class>
     <class>com.phonytive.callup.entities.History</class>
+    <class>com.phonytive.callup.entities.Catalog</class>
+    <class>com.phonytive.callup.entities.User</class>
+    <class>com.phonytive.callup.entities.AudioFile</class>
+    <class>com.phonytive.callup.entities.Subscriber</class>
+    <class>com.phonytive.callup.entities.ActivityType</class>
+    <class>com.phonytive.callup.entities.Activity</class>
+    <class>com.phonytive.callup.entities.Campaign</class>
+    <class>com.phonytive.callup.entities.CallDetailRecord</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/callup"/>
       <property name="javax.persistence.jdbc.password" value="callup"/>

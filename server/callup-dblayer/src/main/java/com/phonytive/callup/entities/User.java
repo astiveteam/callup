@@ -1,14 +1,33 @@
+/* 
+ * Copyright (C) 2012 PhonyTive LLC
+ * http://callup.phonytive.com
+ *
+ * This file is part of Callup
+ *
+ * Callup is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Callup is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.phonytive.callup.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "User", catalog = "callup", schema = "")
+@Table(name = "User")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -42,14 +61,17 @@ public class User implements Serializable {
     private String email;
     @Column(name = "type", length = 12)
     private String type;
-    @ManyToMany(mappedBy = "userList")
-    private List<AudioFile> audioFileList;
+    @JoinTable(name = "UserAudioFile", joinColumns = {
+        @JoinColumn(name = "User", referencedColumnName = "userId", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "AudioFile", referencedColumnName = "audioFileId", nullable = false)})
+    @ManyToMany
+    private Collection<AudioFile> audioFileCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Campaign> campaignList;
+    private Collection<Campaign> campaignCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<History> historyList;
+    private Collection<Activity> activityCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private com.phonytive.callup.entities.List list;
+    private Catalog catalog;
 
     public User() {
     }
@@ -123,38 +145,38 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public List<AudioFile> getAudioFileList() {
-        return audioFileList;
+    public Collection<AudioFile> getAudioFileCollection() {
+        return audioFileCollection;
     }
 
-    public void setAudioFileList(List<AudioFile> audioFileList) {
-        this.audioFileList = audioFileList;
-    }
-
-    @XmlTransient
-    public List<Campaign> getCampaignList() {
-        return campaignList;
-    }
-
-    public void setCampaignList(List<Campaign> campaignList) {
-        this.campaignList = campaignList;
+    public void setAudioFileCollection(Collection<AudioFile> audioFileCollection) {
+        this.audioFileCollection = audioFileCollection;
     }
 
     @XmlTransient
-    public List<History> getHistoryList() {
-        return historyList;
+    public Collection<Campaign> getCampaignCollection() {
+        return campaignCollection;
     }
 
-    public void setHistoryList(List<History> historyList) {
-        this.historyList = historyList;
+    public void setCampaignCollection(Collection<Campaign> campaignCollection) {
+        this.campaignCollection = campaignCollection;
     }
 
-    public com.phonytive.callup.entities.List getList() {
-        return list;
+    @XmlTransient
+    public Collection<Activity> getActivityCollection() {
+        return activityCollection;
     }
 
-    public void setList(com.phonytive.callup.entities.List list) {
-        this.list = list;
+    public void setActivityCollection(Collection<Activity> activityCollection) {
+        this.activityCollection = activityCollection;
+    }
+
+    public Catalog getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(Catalog catalog) {
+        this.catalog = catalog;
     }
 
     @Override

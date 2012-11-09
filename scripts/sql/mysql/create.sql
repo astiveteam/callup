@@ -45,7 +45,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `callup`.`Campaign` (
   `campaignId` INT NOT NULL ,
   `user` INT NOT NULL ,
-  `list` INT NOT NULL ,
+  `catalog` INT NOT NULL ,
   `callerId` VARCHAR(45) NULL ,
   `name` VARCHAR(45) NULL ,
   `maxRetriesPerDay` INT NULL ,
@@ -62,14 +62,14 @@ CREATE  TABLE IF NOT EXISTS `callup`.`Campaign` (
   `dataXML` LONGTEXT NULL ,
   PRIMARY KEY (`campaignId`) ,
   INDEX `fk_Campaign_User1_idx` (`user` ASC) ,
-  INDEX `fk_Campaign_List1_idx` (`list` ASC) ,
+  INDEX `fk_Campaign_List1_idx` (`catalog` ASC) ,
   CONSTRAINT `fk_Campaign_User1`
     FOREIGN KEY (`user` )
     REFERENCES `callup`.`User` (`userId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Campaign_List1`
-    FOREIGN KEY (`list` )
+    FOREIGN KEY (`catalog` )
     REFERENCES `callup`.`Catalog` (`listId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -122,45 +122,45 @@ CREATE  TABLE IF NOT EXISTS `callup`.`AudioFile` (
   `audioFileId` INT NOT NULL ,
   `name` VARCHAR(45) NULL ,
   `time` INT NULL ,
-  `format` SET('MP3','WAV','GSM') NULL ,
+  `supportedFormat` SET('MP3','WAV','GSM') NULL ,
   `description` VARCHAR(45) NULL ,
   `created` DATETIME NULL ,
   `gender` SET('MALE', 'FEMALE') NULL ,
-  `hide` VARCHAR(45) NULL ,
+  `hide` TINYINT(1) NULL ,
   PRIMARY KEY (`audioFileId`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `callup`.`HistoryType`
+-- Table `callup`.`ActivityType`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `callup`.`HistoryType` (
-  `historyTypeId` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `callup`.`ActivityType` (
+  `activityTypeId` INT NOT NULL ,
   `name` VARCHAR(45) NULL ,
   `description` VARCHAR(45) NULL ,
-  PRIMARY KEY (`historyTypeId`) )
+  PRIMARY KEY (`activityTypeId`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `callup`.`History`
+-- Table `callup`.`Activity`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `callup`.`History` (
-  `historyId` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `callup`.`Activity` (
+  `activityId` INT NOT NULL ,
   `description` VARCHAR(45) NULL ,
   `User_userId` INT NOT NULL ,
-  `HistoryType` INT NOT NULL ,
-  PRIMARY KEY (`historyId`, `User_userId`) ,
+  `ActivityType` INT NOT NULL ,
+  PRIMARY KEY (`activityId`, `User_userId`) ,
   INDEX `fk_History_User1_idx` (`User_userId` ASC) ,
-  INDEX `fk_History_HistoryType1_idx` (`HistoryType` ASC) ,
+  INDEX `fk_History_HistoryType1_idx` (`ActivityType` ASC) ,
   CONSTRAINT `fk_History_User1`
     FOREIGN KEY (`User_userId` )
     REFERENCES `callup`.`User` (`userId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_History_HistoryType1`
-    FOREIGN KEY (`HistoryType` )
-    REFERENCES `callup`.`HistoryType` (`historyTypeId` )
+    FOREIGN KEY (`ActivityType` )
+    REFERENCES `callup`.`ActivityType` (`activityTypeId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

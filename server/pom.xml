@@ -5,16 +5,17 @@
         <artifactId>callup</artifactId>
         <groupId>com.phonytive.callup</groupId>
         <version>1.0.0-M1</version>
-    </parent>    
+    </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>server</artifactId>
     <packaging>pom</packaging>
     <name>Callup :: Server</name>
     <modules>
-        <module>callup-telnet</module>        
-        <module>callup-rest</module>
-        <module>callup-dblayer</module>
         <module>callup-core</module>
+        <module>callup-dblayer</module>
+        <module>callup-rest</module>
+        <module>callup-telnet</module>
+        <module>callup-webadmin</module>        
     </modules>
 </project>
 

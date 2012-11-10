@@ -23,6 +23,6 @@ package com.phonytive.callup.server;
  * 
  * @since 1.0.0
  */
-public class Callup {
+public class CallupServer /*extends AstiveServer*/ {
 
 }

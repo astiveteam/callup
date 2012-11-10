@@ -20,28 +20,84 @@
 package com.phonytive.callup.api;
 
 import com.phonytive.callup.CallupException;
+import com.phonytive.callup.controllers.AudioFileJpaController;
+import com.phonytive.callup.controllers.CampaignJpaController;
+import com.phonytive.callup.controllers.UserJpaController;
 import com.phonytive.callup.entities.AudioFile;
 import com.phonytive.callup.entities.Campaign;
 import com.phonytive.callup.entities.User;
 import java.io.File;
 import java.net.URL;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-public interface AudioFilesAPI {
+public class AudioFilesAPI {
 
-    AudioFile getAudioFile(AudioFile audioFile);
+    private EntityManagerFactory emf = null;
+    AudioFileJpaController ajc;
+    UserJpaController ujc;
+    CampaignJpaController cjc;
+            
+    public AudioFilesAPI() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CallupPU");
+        ajc = new AudioFileJpaController(emf);
+        cjc = new CampaignJpaController(emf);
+        ujc = new UserJpaController(emf);
+    }
     
-    List<AudioFile> listAudioFiles(User user);
+    public AudioFile getAudioFile(Integer audioFileId) {
+        return ajc.findAudioFile(audioFileId);
+    }
     
-    List<AudioFile> listAudioFiles(Campaign campaign);
+    public Collection<AudioFile> listUserAudioFiles(Integer userId) {
+        User user = ujc.findUser(userId);
+        return user.getAudioFileCollection();
+    }
     
-    List<AudioFile> listAllAudioFiles();
+    public Collection<AudioFile> listCampaignAudioFiles(Integer campaignId) {
+        Campaign campaign = cjc.findCampaign(campaignId);
+        return campaign.getAudioFileCollection();
+    }
     
-    void removeAudioFile(AudioFile audioFile) throws CallupException;
+    public Collection<AudioFile> listAllAudioFiles() {    
+        return ajc.findAudioFileEntities();
+    }
     
-    boolean campaignHasAudioFiles(Campaign campaign);
+    public void removeAudioFile(Integer audioFileId) throws CallupException{
+        try {
+            ajc.destroy(audioFileId);
+        } catch (Exception ex) {
+            throw new CallupException(ex);
+        }
+    }
     
-    void uploadAudioFile(User user, File file) throws CallupException;
+    boolean campaignHasAudioFile(Integer campaignId, Integer audioFileId) {
+        Campaign campaign = cjc.findCampaign(campaignId);
+        AudioFile audioFile = ajc.findAudioFile(campaignId);
+        
+        Collection <AudioFile> audioFiles = campaign.getAudioFileCollection();
+        for(AudioFile current :audioFiles ) {
+            if(current.getAudioFileId().equals(audioFile.getAudioFileId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean campaignHasAudioFiles(Integer campaignId) {
+        Campaign campaign = cjc.findCampaign(campaignId);
+        if(campaign.getAudioFileCollection().size() > 0) {
+            return true;
+        }
+        return false;
+    }    
     
-    void uploadAudioFile(User user, URL file) throws CallupException;
+    void uploadAudioFile(User user, File file) throws CallupException {
+        //WARNING: Not yet implemented
+    }
+    
+    void uploadAudioFile(User user, URL file) throws CallupException {
+        //WARNING: Not yet implemented
+    }
 }

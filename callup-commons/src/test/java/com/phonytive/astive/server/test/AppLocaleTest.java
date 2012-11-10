@@ -17,8 +17,30 @@
  * You should have received a copy of the GNU General Public License
  * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.phonytive.callup.api;
+package com.phonytive.astive.server.test;
 
-public class ListsAPI {
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import com.phonytive.callup.util.AppLocale;
+import junit.framework.TestCase;
 
+/**
+ *
+ * @since 1.0.0
+ */
+public class AppLocaleTest extends TestCase {
+  /**
+   * Creates a new AppLocaleTest object.
+   */
+  public AppLocaleTest() {
+  }
+
+  /**
+   * DOCUMENT ME!
+   */
+  public void testAppLocale() {
+    assertEquals(AppLocale.getI18n("test", new Object[] { "test" }), "This is a test.");
+  }
 }

@@ -17,8 +17,28 @@
  * You should have received a copy of the GNU General Public License
  * along with Callup.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.phonytive.callup.api;
+package com.phonytive.callup.server;
 
-public class ListsAPI {
 
+/**
+ * This exception is used whenever a critical action is perform by the system.
+ *
+ * @since 1.0.0
+ */
+public class SystemException extends Exception {
+  /**
+   * Creates a new SystemException object with null as its detail message.
+   */
+  public SystemException() {
+  }
+
+  /**
+   * Creates a new SystemException object with the specified detail message.
+   *
+   * @param message the detail message (which is saved for later retrieval by the
+   * <code>Throwable.getMessage()</code> method).
+   */
+  public SystemException(String message) {
+    super(message);
+  }
 }

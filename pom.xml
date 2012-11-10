@@ -7,9 +7,10 @@
     <version>1.0.0-M1</version>
     <packaging>pom</packaging>
     <name>Callup - Voice Delivery</name>
-    <url>http://callup.phonytive.com</url>    
+    <url>http://callup.phonytive.com</url>
     <modules>	
         <module>server</module>
+        <module>callup-commons</module>
     </modules>
     <description>Callup is a voice delivering system.</description>
     <build>
@@ -19,7 +20,7 @@
                 <groupId>com.google.code.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.4.0</version>
-                    <configuration>                    
+                <configuration>                    
                     <header>${basedir}/src/main/resources/license-template.txt</header>                    
                     <failIfMissing>true</failIfMissing>
                     <aggregate>true</aggregate>

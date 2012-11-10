@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>callup</artifactId>
+        <groupId>com.phonytive.callup</groupId>
+        <version>1.0.0-M1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>callup-commons</artifactId>
+    <packaging>jar</packaging>
+    <name>Callup :: Commons</name>
+    <build>
+        <plugins>
+            <plugin>
+                <!--<inherited>false</inherited>-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-version-class</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="${basedir}/src/main/resources/build-version.xml" inheritAll="false" inheritRefs="false">
+                                    <property name="version" value="${project.version}" />
+                                    <property name="build" value="${maven.build.timestamp}" />
+                                    <property name="src.dir" value="${project.build.directory}/generated-sources" />
+                                </ant>
+                            </tasks>
+                            <sourceRoot>
+                                ${project.build.directory}/generated-sources
+                            </sourceRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+</project>

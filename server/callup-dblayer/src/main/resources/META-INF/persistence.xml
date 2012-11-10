@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="com.phonytive.callup_callup-dblayer_jar_1.0.0-M1PU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.phonytive.callup.entities.Campaign_1</class>
-    <class>com.phonytive.callup.entities.AudioFile_1</class>
-    <class>com.phonytive.callup.entities.Subscriber_1</class>
-    <class>com.phonytive.callup.entities.List</class>
-    <class>com.phonytive.callup.entities.User_1</class>
-    <class>com.phonytive.callup.entities.HistoryType</class>
-    <class>com.phonytive.callup.entities.CallDetailRecord_1</class>
-    <class>com.phonytive.callup.entities.History</class>
+  <persistence-unit name="CallupPU">    
     <class>com.phonytive.callup.entities.Catalog</class>
     <class>com.phonytive.callup.entities.User</class>
     <class>com.phonytive.callup.entities.AudioFile</class>
@@ -19,10 +10,13 @@
     <class>com.phonytive.callup.entities.Campaign</class>
     <class>com.phonytive.callup.entities.CallDetailRecord</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/callup"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+            <property name="openjpa.ConnectionURL" value="jdbc:derby:testdb;create=true" />
+            <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/callup"/>
       <property name="javax.persistence.jdbc.password" value="callup"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="callup"/>
+      <property name="javax.persistence.jdbc.user" value="callup"/>-->
     </properties>
   </persistence-unit>
 </persistence>

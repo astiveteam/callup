@@ -19,6 +19,35 @@
  */
 package com.phonytive.callup;
 
-public class CallupException extends Exception {
 
+/**
+ *
+ * @since 1.0.0
+ * @see AgiException
+ */
+public class CallupException extends Exception {
+  /**
+   * Creates a new CallupException object with the original exception as
+   * parameter to be nested as part of this exception.
+   *
+   * @param exception used to provide further info about the original exception.
+   */
+  public CallupException(Exception exception) {
+    super(exception);
+  }
+
+  /**
+   * Creates a new CallupException object.
+   *
+   * @param msg further info about the exception.
+   */
+  public CallupException(String msg) {
+    super(msg);
+  }
+
+  /**
+   * Creates a new CallupException object.
+   */
+  public CallupException() {
+  }
 }

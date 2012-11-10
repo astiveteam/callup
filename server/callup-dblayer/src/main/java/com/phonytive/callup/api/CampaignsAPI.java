@@ -19,8 +19,22 @@
  */
 package com.phonytive.callup.api;
 
+import java.util.Collection;
+
 public class CampaignsAPI {
 
+    public CampaignsAPI() {
+    
+    }
+    
+    /*
+    public Collection<Campaign> getUserCampaigns(Integer userId) {
+    
+    }
+
+    public Collection<Campaign> getCampaignsByStatus(Integer userId) {
+    
+    }*/
     
     
 }

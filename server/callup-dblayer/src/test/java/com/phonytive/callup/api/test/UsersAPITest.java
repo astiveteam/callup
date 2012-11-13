@@ -1,10 +1,10 @@
 package com.phonytive.callup.api.test;
 
+import com.phonytive.callup.PUSelector;
 import com.phonytive.callup.controllers.UserJpaController;
 import com.phonytive.callup.entities.User;
 import com.phonytive.callup.exceptions.PreexistingEntityException;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import junit.framework.TestCase;
 
 /**
@@ -18,7 +18,7 @@ public class UsersAPITest extends TestCase {
     }
 
     public void testUserAPI() throws PreexistingEntityException, Exception {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CallupTestPU");
+        EntityManagerFactory emf = PUSelector.getEntityManager();
         UserJpaController ujc = new UserJpaController(emf);
         User user = new User();
         user.setUserId(new Integer("2"));

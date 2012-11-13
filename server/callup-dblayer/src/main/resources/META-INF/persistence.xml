@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="CallupPU">    
-    <class>com.phonytive.callup.entities.Catalog</class>
-    <class>com.phonytive.callup.entities.User</class>
-    <class>com.phonytive.callup.entities.AudioFile</class>
-    <class>com.phonytive.callup.entities.Subscriber</class>
-    <class>com.phonytive.callup.entities.ActivityType</class>
-    <class>com.phonytive.callup.entities.Activity</class>
-    <class>com.phonytive.callup.entities.Campaign</class>
-    <class>com.phonytive.callup.entities.CallDetailRecord</class>
-    <properties>
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
-            <property name="openjpa.ConnectionURL" value="jdbc:derby:testdb;create=true" />
-            <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-      <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/callup"/>
-      <property name="javax.persistence.jdbc.password" value="callup"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="callup"/>-->
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="CallupTestPU" transaction-type="RESOURCE_LOCAL">
+        <description>Persistence using a built-in memory-only H2 (Hyperion) database</description>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.phonytive.callup.entities.Catalog</class>
+        <class>com.phonytive.callup.entities.User</class>
+        <class>com.phonytive.callup.entities.AudioFile</class>
+        <class>com.phonytive.callup.entities.Subscriber</class>
+        <class>com.phonytive.callup.entities.ActivityType</class>
+        <class>com.phonytive.callup.entities.Activity</class>
+        <class>com.phonytive.callup.entities.Campaign</class>
+        <class>com.phonytive.callup.entities.CallDetailRecord</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:test;mode=MySQL;DB_CLOSE_DELAY=-1" /> 
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>            
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+        </properties>        
+    </persistence-unit>
+    <persistence-unit name="CallupMySQLTestPU" transaction-type="RESOURCE_LOCAL">
+        <description>Persistence using a MySQL database</description>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.phonytive.callup.entities.Catalog</class>
+        <class>com.phonytive.callup.entities.User</class>
+        <class>com.phonytive.callup.entities.AudioFile</class>
+        <class>com.phonytive.callup.entities.Subscriber</class>
+        <class>com.phonytive.callup.entities.ActivityType</class>
+        <class>com.phonytive.callup.entities.Activity</class>
+        <class>com.phonytive.callup.entities.Campaign</class>
+        <class>com.phonytive.callup.entities.CallDetailRecord</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/callup" />
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.password" value="callup" />
+            <property name="hibernate.connection.username" value="callup" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+        </properties>
+    </persistence-unit>
 </persistence>
+

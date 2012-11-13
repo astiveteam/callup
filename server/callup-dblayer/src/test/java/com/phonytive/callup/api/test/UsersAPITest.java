@@ -6,27 +6,28 @@ import com.phonytive.callup.exceptions.PreexistingEntityException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import junit.framework.TestCase;
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 
 /**
  *
- * @author psanders
+ * @since 1.0.0
  */
-public class AudioFilesAPITest extends TestCase {
-    
-    public AudioFilesAPITest(String testName) {
+public class UsersAPITest extends TestCase {
+
+    public UsersAPITest(String testName) {
         super(testName);
     }
 
-    public void testHello() throws PreexistingEntityException, Exception {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CallupPU");
+    public void testUserAPI() throws PreexistingEntityException, Exception {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CallupTestPU");
         UserJpaController ujc = new UserJpaController(emf);
         User user = new User();
+        user.setUserId(new Integer("2"));
         user.setName("Jhon Doe");
         ujc.create(user);
-        assert(1 == 1);
+        assert (1 == 1);
+        assert (ujc.findUserEntities().size() == 1);
+
+        user = ujc.findUser(new Integer("2"));
+        assert (user.getName().equals("Jhon Doe"));
     }
 }
